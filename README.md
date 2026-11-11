@@ -1,34 +1,41 @@
 # Manufacturing Downtime & Root Cause Intelligence
 
-An industrial sensor data analytics project that investigates compressor performance and documented air-leak events using Python, SQL, and Power BI.
+**Industrial Sensor Analytics | Python | SQL | SQLite | Power BI**
+
+An industrial sensor data analytics project focused on investigating compressor performance, analysing sensor behaviour, and identifying patterns associated with documented air-leak events using Python, SQL, and Power BI.
+
+---
 
 ## Project Overview
 
-Industrial equipment generates large amounts of sensor data. Analysing this data can help identify unusual operating patterns and support equipment investigation.
+Industrial equipment continuously generates sensor readings that can help understand equipment behaviour and identify unusual operating conditions.
 
-This project analyses the MetroPT-3 Air Compressor dataset to understand sensor behaviour during documented air-leak periods.
+However, analysing large volumes of sensor data manually can be challenging.
 
-The project combines data preprocessing, exploratory data analysis, SQL-based investigation, rule-based sensor analysis, chronological validation, and interactive Power BI dashboards.
+This project uses the **MetroPT-3 Air Compressor Dataset** to investigate sensor behaviour during documented air-leak periods. It combines data preprocessing, exploratory data analysis, SQL-based investigation, operating-state comparison, rule-based sensor analysis, chronological validation, and interactive Power BI dashboards.
 
-## Objectives
+The goal is to transform raw industrial sensor data into meaningful analytical insights that can support equipment monitoring and maintenance investigation.
+
+## Project Objectives
 
 - Process and validate large-scale industrial sensor data.
-- Investigate sensor behaviour across normal and documented air-leak periods.
-- Analyse pressure, temperature, and motor current measurements.
+- Analyse sensor behaviour during normal and documented air-leak periods.
+- Investigate pressure, temperature, and motor current variations.
 - Perform structured analysis using SQL.
+- Compare sensor readings under similar operating conditions.
 - Develop a rule-based sensor investigation method.
 - Evaluate the investigation method using chronological validation.
-- Present findings through interactive Power BI dashboards.
+- Build interactive Power BI dashboards to communicate findings.
 
-## Dataset
+## Dataset Description
 
 **Dataset:** MetroPT-3 Air Compressor Dataset  
 **Source:** UCI Machine Learning Repository  
 **Equipment:** Air Production Unit (APU) compressor installed in a metro train.
 
-The dataset contains 1,516,948 sensor observations collected between February and September 2020.
+The dataset contains approximately 1.5 million sensor observations collected between February and September 2020.
 
-### Important Variables
+### Important sensor variables
 
 | Variable | Description |
 |---|---|
@@ -44,110 +51,170 @@ The dataset contains 1,516,948 sensor observations collected between February an
 | LPS | Low-pressure switch signal |
 | MPG | Compressor-related operating indicator |
 
-The dataset includes four documented air-leak periods, which are used as event categories for retrospective analysis.
+The dataset contains four documented air-leak periods:
 
-**Note:** The documented event periods are time-window labels, not independently verified fault labels for every individual observation.
+- Air_Leak_1
+- Air_Leak_2
+- Air_Leak_3
+- Air_Leak_4
+
+These documented time windows were used to categorise observations for retrospective analysis.
+
+**Dataset limitation:** The event categories represent documented time windows, not independently verified fault labels for every individual sensor observation.
 
 ## Technology Stack
 
-- **Python:** Data processing and analysis
-- **Pandas & NumPy:** Data manipulation and numerical analysis
-- **Matplotlib & Seaborn:** Data visualisation
-- **SQL:** Structured data analysis
-- **SQLite:** Database storage
-- **Power BI:** Interactive dashboard development
-- **VS Code:** Development environment
+| Technology | Application |
+|---|---|
+| Python | Data processing and analysis |
+| Pandas | Data cleaning and manipulation |
+| NumPy | Numerical calculations |
+| Matplotlib | Data visualisation |
+| Seaborn | Statistical visualisation |
+| SQL | Structured data analysis |
+| SQLite | Database storage |
+| Power BI | Interactive dashboard development |
+| VS Code | Development environment |
+| Git & GitHub | Version control and project hosting |
 
 ## Project Workflow
 
 ### 1. Data Inspection and Cleaning
 
-- Inspected the original dataset.
-- Converted timestamps into datetime format.
-- Checked missing values and invalid timestamps.
-- Validated record ordering.
-- Created labelled data for the documented air-leak periods.
+Python and Pandas were used to inspect and preprocess the original dataset.
 
-**Result:** 1,516,948 observations processed, with zero missing values and zero invalid timestamps.
+Activities included:
 
-### 2. Exploratory Data Analysis
+- Inspecting dataset dimensions and column information.
+- Converting timestamps into datetime format.
+- Checking missing values and invalid timestamps.
+- Validating record ordering.
+- Creating event categories using documented air-leak periods.
+- Exporting cleaned and labelled datasets.
 
-Analysed sensor behaviour across normal and documented air-leak periods.
-
-Key variables included:
-- TP2 and TP3 pressure.
-- Reservoir pressure.
-- Oil temperature.
-- Motor current.
-
-Visualisations were created to compare sensor patterns across event categories.
-
-### 3. SQL Analysis
-
-Stored the processed dataset in SQLite and performed queries to investigate:
-
-- Total sensor records.
-- Event-category distribution.
-- Date ranges.
-- Sensor averages by event category.
-- Operating-state comparisons.
-
-### 4. Operating-State Analysis
-
-Compared sensor readings under the same `DV_eletric = 1` operating state to reduce differences caused by this particular operating-state indicator.
-
-The analysis showed higher average oil temperatures and lower pressure readings during certain documented air-leak periods compared with normal operation.
-
-### 5. Rule-Based Sensor Investigation
-
-Developed a threshold-based investigation method using three sensor conditions:
-
-- TP3 below its reference threshold.
-- Reservoir pressure below its reference threshold.
-- Oil temperature above its reference threshold.
-
-A combined alert was generated when both the pressure condition and temperature condition were satisfied.
-
-This was a manually designed investigation rule rather than a trained machine learning model.
-
-### 6. Chronological Validation
-
-Used historical normal operating records before June 2020 to calculate sensor thresholds and evaluated the rules on a later period.
-
-The validation focused on Air_Leak_3 and Air_Leak_4.
-
-### 7. Power BI Dashboard
-
-Developed a two-page interactive dashboard.
-
-**Page 1 – Event Overview**
-- Total sensor records.
-- Documented failure-window records.
-- Documented air-leak events.
-- Event distribution.
-- Average oil temperature.
-- Average motor current.
-- Average pressure.
-
-**Page 2 – Sensor Analysis**
-- TP2 trends.
-- Reservoir pressure trends.
-- Motor current trends.
-- Oil temperature trends.
-- Event-category slicer.
-
-## Key Results
-
-### Dataset Summary
+**Data preparation results:**
 
 | Metric | Result |
 |---|---:|
 | Total observations | 1,516,948 |
-| Documented air-leak periods | 4 |
-| Event-window observations | 29,954 |
+| Missing values | 0 |
+| Invalid timestamps | 0 |
+| Documented event-window observations | 29,954 |
 | Normal-labelled observations | 1,486,994 |
 
-### Chronological Validation Results
+### 2. Exploratory Data Analysis (EDA)
+
+Exploratory Data Analysis was performed to understand how sensor readings varied across different event categories.
+
+The analysis focused on:
+
+- TP2 and TP3 pressure readings.
+- Air reservoir pressure.
+- Oil temperature.
+- Motor current.
+- Sensor trends over time.
+
+Visualisations were created to compare sensor behaviour during normal and documented air-leak periods.
+
+### 3. SQL-Based Analysis
+
+The processed dataset was stored in an SQLite database named `manufacturing.db`.
+
+A structured table called `sensor_readings` was created for querying and analysis.
+
+SQL was used to investigate:
+
+- Total sensor records.
+- Event-category distribution.
+- Date ranges.
+- Average sensor readings across event categories.
+- Operating-state comparisons.
+- Event-specific sensor summaries.
+
+### 4. Operating-State Analysis
+
+Sensor readings can change depending on equipment operating conditions. Therefore, comparing all observations directly may produce misleading results.
+
+An additional analysis was performed by comparing observations where `DV_eletric = 1`.
+
+This helped reduce differences associated with this particular operating-state indicator.
+
+**State-matched sensor comparison:**
+
+| Category | TP3 Average | Reservoir Average | Oil Temperature Average |
+|---|---:|---:|---:|
+| Normal | 8.9515 | 8.9501 | 64.93 |
+| Air_Leak_1 | 8.8179 | 8.8190 | 74.39 |
+| Air_Leak_2 | 8.3900 | 8.3920 | 75.88 |
+| Air_Leak_3 | 8.0182 | 8.0201 | 75.52 |
+| Air_Leak_4 | 8.1749 | 8.1725 | 84.12 |
+
+**Key observations:**
+
+- Oil temperature was higher across all four documented event periods compared with normal operation.
+- TP3 and reservoir pressure were lower during Air_Leak_2 and Air_Leak_3.
+- Air_Leak_4 showed the highest average oil temperature.
+
+This comparison controls for `DV_eletric` only. Other operating conditions may also influence sensor behaviour.
+
+### 5. Rule-Based Sensor Investigation
+
+A threshold-based investigation method was developed using pressure and temperature measurements.
+
+Reference thresholds were calculated using sampled normal operating records where `DV_eletric = 1`.
+
+**Reference thresholds:**
+
+| Sensor | Threshold | Condition |
+|---|---:|---|
+| TP3 | 8.0780 | Below threshold |
+| Reservoirs | 8.0800 | Below threshold |
+| Oil_temperature | 73.7000 | Above threshold |
+
+**Investigation logic:**
+
+1. Check whether TP3 is below its threshold.
+2. Check whether reservoir pressure is below its threshold.
+3. Check whether oil temperature exceeds its threshold.
+4. Generate a combined alert when both the pressure condition and temperature condition are satisfied.
+
+The pressure condition requires both TP3 and reservoir pressure to be below their respective thresholds.
+
+This is a manually designed rule-based investigation method, not a trained machine learning model.
+
+**Results across the complete dataset:**
+
+| Category | Records | Combined Alerts | Alert Rate |
+|---|---:|---:|---:|
+| Normal | 213,837 | 5,436 | 2.542% |
+| Air_Leak_1 | 8,566 | 0 | 0% |
+| Air_Leak_2 | 2,341 | 4 | 0.171% |
+| Air_Leak_3 | 17,315 | 8,170 | 47.185% |
+| Air_Leak_4 | 1,579 | 763 | 48.322% |
+
+These results show that combined pressure and temperature alerts occurred more frequently during Air_Leak_3 and Air_Leak_4 than during normal observations.
+
+### 6. Chronological Validation
+
+A chronological validation experiment was performed to investigate whether thresholds derived from historical normal observations could identify relevant patterns in a later period.
+
+The dataset was divided using a cutoff date of **1 June 2020**.
+
+- Historical reference period: Before 1 June 2020.
+- Validation period: From 1 June 2020 onward.
+- Historical normal records: 113,237.
+- Reference sample used for threshold calculation: 45,000.
+- Validation records with `DV_eletric = 1`: 119,494.
+
+**Thresholds calculated from historical data:**
+
+| Sensor | Threshold |
+|---|---:|
+| TP3 | 8.0540 |
+| Reservoirs | 8.0560 |
+| Oil_temperature | 74.2250 |
+
+**Chronological validation results:**
 
 | Category | Records | Combined Alerts | Alert Rate |
 |---|---:|---:|---:|
@@ -155,14 +222,54 @@ Developed a two-page interactive dashboard.
 | Air_Leak_3 | 17,315 | 7,337 | 42.374% |
 | Air_Leak_4 | 1,579 | 755 | 47.815% |
 
-The combined pressure and temperature alert condition occurred more frequently during the two documented air-leak periods than during normal observations in the validation period.
+**Interpretation:**
 
-These results indicate potentially useful sensor patterns for retrospective investigation. They should not be interpreted as predictive model accuracy or proof of real-time fault detection.
+The combined alert condition occurred substantially more frequently during Air_Leak_3 and Air_Leak_4 than during normal observations in the validation period.
+
+This indicates that the selected sensor conditions may be useful for retrospective investigation of certain air-leak patterns.
+
+**Important limitation:** This is not a fully independent predictive benchmark because the investigation rules were selected after exploratory analysis of the dataset. Validation covers Air_Leak_3 and Air_Leak_4 only. The alert rates should not be interpreted as prediction accuracy, precision, recall, or proof of real-time fault detection.
+
+## Power BI Dashboard
+
+An interactive two-page dashboard was developed using Power BI Desktop to present the analytical findings.
+
+### Page 1 – Event Overview
+
+![Manufacturing Dashboard Overview](powerbi/screenshots/dashboard_overview.png)
+
+The first page provides an overview of the dataset and documented air-leak event distribution.
+
+**Key components:**
+
+- Total sensor records.
+- Documented failure-window records.
+- Documented air-leak events.
+- Sensor record distribution across event categories.
+- Average motor current across events.
+- Average pressure (TP2 and TP3) across events.
+- Average oil temperature across events.
+
+### Page 2 – Sensor Analysis
+
+![Manufacturing Sensor Analysis](powerbi/screenshots/sensor_analysis.png)
+
+The second page focuses on sensor trends over time.
+
+**Key components:**
+
+- TP2 pressure trend.
+- Reservoir pressure trend.
+- Motor current trend.
+- Oil temperature trend.
+- Event-category slicer for interactive filtering.
+
+The dashboard makes it easier to explore sensor behaviour and compare different documented event categories.
 
 ## Repository Structure
 
 ```text
-Manufacturing-Downtime-Intelligence/
+manufacturing-downtime-intelligence/
 │
 ├── data/
 │   ├── raw/
@@ -174,18 +281,38 @@ Manufacturing-Downtime-Intelligence/
 │   ├── validate_data.py
 │   ├── label_failures.py
 │   ├── analyze_failures.py
+│   ├── anomaly_detection.py
+│   ├── create_database.py
+│   ├── run_sql_analysis.py
+│   ├── operating_state_analysis.py
+│   ├── operating_state_diagnostic.py
 │   ├── state_matched_analysis.py
+│   ├── load_matched_analysis.py
 │   ├── sensor_rule_investigation.py
-│   └── chronological_validation.py
+│   ├── chronological_validation.py
+│   ├── failure_visualization.py
+│   ├── plot_comparison.py
+│   ├── plot_sensor_groups.py
+│   └── export_powerbi_data.py
 │
 ├── sql/
 │   └── analysis_queries.sql
 │
 ├── powerbi/
 │   ├── Manufacturing_Downtime_Dashboard.pbix
-│   └── data/
+│   ├── data/
+│   └── screenshots/
+│       ├── dashboard_overview.png
+│       └── sensor_analysis.png
 │
 ├── reports/
+│   ├── chronological_validation_summary.csv
+│   ├── chronological_validation_thresholds.csv
+│   ├── sensor_investigation_summary.csv
+│   ├── sensor_rule_thresholds.csv
+│   ├── state_matched_sensor_comparison.csv
+│   ├── state_matched_sensor_summary.csv
+│   └── visualisation files
 │
 ├── requirements.txt
 ├── .gitignore
@@ -197,8 +324,9 @@ Manufacturing-Downtime-Intelligence/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-cd Manufacturing-Downtime-Intelligence
+git clone https://github.com/Ananya473/manufacturing-downtime-intelligence.git
+
+cd manufacturing-downtime-intelligence
 ```
 
 ### 2. Create a virtual environment
@@ -209,7 +337,7 @@ python -m venv .venv
 
 ### 3. Activate the environment
 
-Windows PowerShell:
+For Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -231,40 +359,55 @@ Place the original CSV file at:
 data/raw/MetroPT3(AirCompressor).csv
 ```
 
-### 6. Run the analysis scripts
+### 6. Execute the analysis
 
 Run the Python scripts from the project root directory in the appropriate workflow order.
 
-The scripts in `src/` cover data inspection, cleaning, validation, event labelling, analysis, database creation, sensor investigation, and chronological validation.
+The scripts in `src/` cover:
+
+- Data inspection and cleaning.
+- Timestamp validation.
+- Event labelling.
+- Exploratory analysis.
+- Database creation and SQL analysis.
+- Operating-state comparison.
+- Rule-based sensor investigation.
+- Chronological validation.
+- Power BI data export.
 
 The Power BI dashboard can be opened using Power BI Desktop.
 
 ## Project Limitations
 
-- The dataset represents one compressor unit, not multiple independent manufacturing machines.
-- Event labels are based on documented time windows.
-- The dataset does not provide repair timestamps or production output.
-- MTTR, MTBF, and OEE cannot be reliably calculated from the available data.
+- The dataset represents one compressor unit rather than multiple independent manufacturing machines.
+- The documented air-leak periods are time-window labels, not independently verified labels for every observation.
+- The dataset does not contain repair start and end times or production output.
+- MTTR, MTBF, and OEE cannot be reliably calculated using the available data.
 - The rule-based method is intended for retrospective investigation, not established real-time prediction.
-- Chronological validation is limited to two documented air-leak periods and is not a fully independent predictive benchmark.
+- Chronological validation covers two documented air-leak periods and is not a fully independent predictive benchmark.
+- Operating-state matching controls for `DV_eletric` only; other operating conditions may influence the results.
 
 ## Future Scope
 
-- Evaluate the methodology on additional industrial datasets.
-- Incorporate confirmed maintenance and fault records.
+- Evaluate the investigation method on additional industrial datasets.
+- Incorporate confirmed maintenance logs and fault labels.
 - Explore independently validated machine learning models.
-- Develop real-time sensor monitoring.
-- Integrate alerts with maintenance management systems.
-- Incorporate production and repair data for maintenance KPI calculations.
+- Develop real-time sensor monitoring and alerting.
+- Integrate the analysis with maintenance management systems.
+- Incorporate production and repair data to calculate reliable maintenance KPIs.
 
 ## Conclusion
 
-This project demonstrates how industrial sensor data can be transformed into meaningful analytical insights using Python, SQL, and Power BI.
+This project demonstrates how large-scale industrial sensor data can be processed and analysed to investigate equipment behaviour during documented air-leak periods.
 
-It combines data cleaning, sensor comparison, operating-state analysis, rule-based investigation, chronological validation, and dashboard development to explore compressor behaviour during documented air-leak periods.
+By combining Python, SQL, SQLite, and Power BI, the project transforms raw sensor readings into structured analysis, sensor comparisons, rule-based investigation results, and interactive visualisations.
 
-The project provides a foundation for further work in industrial analytics and predictive maintenance.
+The analysis identified differences in pressure and oil temperature across documented event categories. Chronological validation also showed a higher frequency of combined pressure and temperature alerts during Air_Leak_3 and Air_Leak_4 than during normal observations.
+
+Overall, the project provides a practical foundation for industrial sensor analytics and further development in predictive maintenance.
 
 ---
 
-**Developed using:** Python | SQL | SQLite | Power BI
+**Developed using Python | SQL | SQLite | Power BI**
+
+**GitHub Repository:** https://github.com/Ananya473/manufacturing-downtime-intelligence
