@@ -1,0 +1,6 @@
+failure_event,total_records,COMP_percentage,DV_eletric_percentage,Towers_percentage,MPG_percentage,LPS_percentage
+Air_Leak_1,8657,0.82,98.95,50.12,0.82,0.0
+Air_Leak_2,2360,0.81,99.19,50.42,0.81,0.0
+Air_Leak_3,17315,0.0,100.0,50.11,0.0,1.14
+Air_Leak_4,1622,2.65,97.35,51.17,2.65,32.68
+Normal,1486994,85.37,14.38,92.83,84.93,0.3

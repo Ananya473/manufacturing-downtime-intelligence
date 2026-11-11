@@ -1,0 +1,8 @@
+failure_event,is_anomaly,record_count
+Air_Leak_1,0,2000
+Air_Leak_2,0,406
+Air_Leak_3,0,3591
+Air_Leak_3,1,3
+Air_Leak_4,0,1579
+Normal,0,15298
+Normal,1,167

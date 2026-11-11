@@ -1,0 +1,4 @@
+sensor,threshold,rule
+TP3,8.054,Below 10th percentile
+Reservoirs,8.056,Below 10th percentile
+Oil_temperature,74.22500000000001,Above 90th percentile

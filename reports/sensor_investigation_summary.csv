@@ -1,0 +1,6 @@
+failure_event,total_records,pressure_signal_records,temperature_signal_records,combined_alerts,alert_rate_percent
+Normal,213837,23994,28414,5436,2.54212320599335
+Air_Leak_1,8566,2,5920,0,0.0
+Air_Leak_2,2341,4,2327,4,0.17086715079026057
+Air_Leak_3,17315,8546,16938,8170,47.18452209067283
+Air_Leak_4,1579,763,1579,763,48.32172260924636

@@ -1,0 +1,6 @@
+failure_event,total_records,avg_TP2,avg_TP3,avg_H1,avg_reservoirs,avg_oil_temperature,avg_motor_current,loaded_records
+Air_Leak_1,8657,8.518,8.812,0.079,8.813,74.131,5.604,8566
+Air_Leak_2,2360,8.175,8.402,0.071,8.404,75.871,5.566,2341
+Air_Leak_3,17315,7.892,8.018,-0.007,8.02,75.517,5.494,17315
+Air_Leak_4,1622,8.265,8.207,0.247,8.205,83.906,5.51,1579
+Normal,1486994,1.232,8.999,7.72,8.999,62.383,1.98,213837
